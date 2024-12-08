@@ -14,6 +14,14 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {data} = useData()
+  let last = null;
+  if (data && data.events){
+    last = data.events.reduce(
+      (latest, event) =>
+        new Date(event.date) > new Date(latest.date) ? event : latest,
+      data.events[0]
+    );
+  }
   return <>
     <header>
       <Menu />
